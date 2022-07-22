@@ -1,0 +1,245 @@
+#include <iostream>
+#include<fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+
+    cout<<endl;
+    cout<< "              ************* WELCOME TO FORM ***************";
+    cout<<endl<<endl;
+    int key;
+    Label:
+
+    cout <<"\n";
+    cout<<"Press 1 for new "<<endl;
+    cout<<"press 2 for existing "<<endl;
+    cout<<"press 3 for exit "<<endl;
+    cout<<"press 4 for ADMIN login "<<endl;
+    cin>>key;
+
+    if(key==1)
+    {
+
+    ifstream rollbooks;
+    rollbooks.open("roll.txt");
+    int roll;
+    rollbooks>>roll;
+    roll++;
+    ofstream rollbook;
+    rollbook.open("roll.txt");
+    rollbook<<roll;
+    rollbook.close();
+    int a=roll;
+    rollbooks.close();
+    cin.ignore();
+    ofstream file(std::to_string(a) + ".txt");
+    string str,fname,mname;
+    cout << "Please enter your full name      =";
+    getline(cin, str);
+    cin.ignore();
+    file<<str<<endl;
+    int dd,mm,yy;
+    cout<<"Enter DOB with space = ";
+    cin>>dd>>mm>>yy;
+    file<<dd<<" "<<mm<<" "<<yy;
+    cin.ignore();
+    cout << "please enter father's full name   =";
+    getline(cin, fname);
+    file<<fname<<endl;
+    cout << "please enter mother's full name   =";
+    getline(cin, mname);
+    file<<mname<<endl;
+    int pincode;
+    cout<< "please enter pincode ";
+    cin>>pincode;
+    file<<pincode<<endl;
+    file<<roll;
+    cout<<"Regestration no.    = "<<a<<" ( PLEASE REMEMBER THIS CODE !!!! )"<<endl;
+    cout<<"YOUR  REGESTRATION IS DONE !!! ";
+    cout<<endl;
+    rollbooks.close();
+    file.close();
+    goto Label;
+    }
+
+    if(key==2)
+    {
+        cin.ignore();
+        int rno;
+        cout<<"Enter your Regestration no. to get details : \n";
+        cin>>rno;
+        ifstream ifile(std::to_string(rno) + ".txt");
+        string str1;
+        int dd,mm,yy;
+        string str2;
+        string str3;
+        int mnumber1;
+        int roll;
+        getline(ifile, str1);
+        ifile>>dd>>mm>>yy;
+        getline(ifile, str2);
+        getline(ifile, str3);
+        ifile>>mnumber1;
+        ifile>>roll;
+        cout<<"Your name           ="<<str1<<endl;
+        cout<<"DOB                 ="<<dd<<"-"<<mm<<"-"<<yy<<endl;
+        cout<<"Father's name       ="<<str2<<endl;
+        cout<<"mother's name       ="<<str3<<endl;
+        cout<<"pincode             ="<<mnumber1<<endl;
+        cout<<"Regestration no.    = "<<roll<<endl;
+
+        ifile.close();
+        goto Label;
+    }
+
+    if(key==3)
+    {
+        exit(0);
+    }
+
+    if(key!=1 && key!=2 && key!=3 && key!=4)
+    {
+
+        cout<<"bad chioce";
+        goto Label;
+    }
+    if(key==4)
+
+    {
+        int pwd;
+        cout<<"Enter Password ";
+        cin>>pwd;
+        if(pwd==1234)
+        {
+            cout<<"Welcome admin "<<endl<<endl;
+            ifstream rollbooks;
+            rollbooks.open("roll.txt");
+            int roll;
+            rollbooks>>roll;
+            int f=roll;
+            rollbooks.close();
+
+
+                 Label2:
+                 int view;
+                 cout<<"Press 1 for all registratins  "<<endl;
+                 cout<<"press 2 for search by DOB     "<<endl;
+                 cout<<"press 3 for search by pincode "<<endl;
+                 cout<<"Press 4 for logout            "<<endl<<endl;
+                 cin>>view;
+                 if(view==1)
+                 {
+                     cout<<"index"<<"     "<<"DOB"<<"         "<<"pincode"<<"        "<<"user"<<"            "<<"Father's name"<<"        "<<"mother's name"<<endl<<endl;
+                     for(int k=1;k<=f;k++)
+                     {
+
+
+                     ifstream ifile(std::to_string(k) + ".txt");
+                     string str1;
+                     int dd,mm,yy;
+                     string str2;
+                     string str3;
+                     int mnumber1;
+                     int roll;
+                     getline(ifile, str1);
+                     ifile>>dd>>mm>>yy;
+                     getline(ifile, str2);
+                     getline(ifile, str3);
+                     ifile>>mnumber1;
+                     ifile>>roll;
+                     cout<<roll<<"      "<<dd<<"-"<<mm<<"-"<<yy<<"     "<<mnumber1<<"     "<<str1<<"     "<<str2<<"     "<<str3<<endl;
+                     }
+                     goto Label2;
+                 }
+                 if(view==2)
+                 {
+                     int a,b,c;
+                     cout<<"Enter DOB with space ";
+                     cin>>a>>b>>c;
+                     for(int l=1;l<=f;l++)
+                     {
+
+
+
+                     ifstream ifile(std::to_string(l) + ".txt");
+                     string str1;
+                     int dd,mm,yy;
+                     string str2;
+                     string str3;
+                     int mnumber1;
+                     int roll;
+                     getline(ifile, str1);
+                     ifile>>dd>>mm>>yy;
+                     getline(ifile, str2);
+                     getline(ifile, str3);
+                     ifile>>mnumber1;
+                     ifile>>roll;
+
+                     if(a==dd && b==mm && c==yy)
+                     {
+                         cout<<"name          = "<<str1<<endl;
+                         cout<<"father's name = "<<str2<<endl;
+                         cout<<"mother's name = "<<str3<<endl;
+                         cout<<"Pincode       = "<<mnumber1<<endl<<endl;
+                         goto Label2;
+                     }
+                     }
+                     goto Label2;
+
+                 }
+                 if(view==3)
+                 {
+                     int d;
+                     cout<<"enter pincode ";
+                     cin>>d;
+                     for(int j=1;j<=roll;j++)
+                     {
+                         cout<<endl;
+                         ifstream ifile(std::to_string(j) + ".txt");
+                         string str1;
+                         int dd,mm,yy;
+                         string str2;
+                         string str3;
+                         int mnumber1;
+                         int roll;
+                         getline(ifile, str1);
+                         ifile>>dd>>mm>>yy;
+                         getline(ifile, str2);
+                         getline(ifile, str3);
+                         ifile>>mnumber1;
+                         ifile>>roll;
+                         if(d==mnumber1)
+                         {
+                             cout<<roll<<" "<<dd<<"="<<mm<<"-"<<yy<<"     "<<str1<<"     "<<str2<<"     "<<str3;
+                         }
+                     }
+                     goto Label2;
+                 }
+                 if(view==4)
+                 {
+                     cout<<"Logout Successful "<<endl<<endl;
+                     goto Label;
+                 }
+                 if(view!=1 && view!=2 && view!=3 && view!=4)
+                 {
+                     cout<<"Bad choice ";
+                     goto Label2;
+                 }
+
+
+
+        }
+        if(pwd!=1234)
+        {
+            cout<<"wrong password "<<endl;
+            goto Label;
+        }
+
+    }
+
+
+    return 0;
+
+}
